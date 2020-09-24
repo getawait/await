@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property string $referrer
+ * @property int $modifier
  */
 class Subscriber extends Model
 {
     protected $table = 'subscribers';
-
-    protected ?int $modifier;
 
     public function getPosition(): int
     {
