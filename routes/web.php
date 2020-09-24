@@ -23,6 +23,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return Inertia\Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::get('/lists', [ListsController::class, 'index'])->name('lists');
-    Route::get('/lists/create', [ListsController::class, 'create'])->name('lists.create');
+    Route::resource('lists', 'ListsController')
+        ->only(['index', 'show', 'create', 'store']);
 });
