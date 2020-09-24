@@ -1,6 +1,4 @@
-<p align="center">
-<img src="resources/images/waitlist.png" alt="logo" width="300" />  
-</p>
+# Await
 
 [![Build Status](https://travis-ci.org/getawait/await.svg?branch=master)](https://travis-ci.org/getawait/await)
 [![StyleCI](https://github.styleci.io/repos/290447940/shield?branch=master&style=flat)](https://github.styleci.io/repos/290447940?branch=master)  
