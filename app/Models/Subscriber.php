@@ -5,9 +5,14 @@ namespace App\Models;
 use App\Utils\MoveElement;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $referrer
+ */
 class Subscriber extends Model
 {
     protected $table = 'subscribers';
+
+    protected ?int $modifier;
 
     public function getPosition(): int
     {
