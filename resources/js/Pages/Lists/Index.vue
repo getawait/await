@@ -37,15 +37,15 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                  <tr>
+                  <tr v-for="list in lists">
                     <td class="px-6 py-4 whitespace-no-wrap">
                       <div class="flex items-center">
                         <div class="ml-4">
                           <div class="text-sm leading-5 font-medium text-gray-900">
-                            DaybyDay
+                              {{ list.name }}
                           </div>
                           <div class="text-sm leading-5 text-gray-500">
-                            Created on: 29/08/2001
+                            Created on: {{ list.created_at }}
                           </div>
                         </div>
                       </div>
@@ -54,13 +54,22 @@
                       421
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap">
-                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <span
+                          v-if="list.is_active"
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
+                      >
                         Active
+                      </span>
+                        <span
+                            v-else
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
+                        >
+                        Inactive
                       </span>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
                       <a
-                        href="#"
+                        :href="`/lists/${list.id}`"
                         class="text-indigo-600 hover:text-indigo-900"
                       >Edit</a>
                     </td>
@@ -76,16 +85,16 @@
 </template>
 
 <script>
-  import AppLayout from './../../Layouts/AppLayout'
-  import Button from '../../Jetstream/Button';
+    import AppLayout from './../../Layouts/AppLayout'
+    import Button from '../../Jetstream/Button';
 
-  export default {
+    export default {
     components: {
       Button,
       AppLayout,
     },
     props: {
-      list: {
+      lists: {
         type: Array,
         required: true,
       },
