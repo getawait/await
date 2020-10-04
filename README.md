@@ -14,7 +14,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 
-# Take a moment to ensure that your DB settings in your .env files are correct.
+# Take a moment to ensure that your DB settings in your .env file are correct.
 php artisan migrate
 
 npm install
