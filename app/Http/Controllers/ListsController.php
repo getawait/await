@@ -6,12 +6,20 @@ use App\Http\Resources\WaitlistResource;
 use App\Models\Waitlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class ListsController extends Controller
 {
     public function index()
     {
+        Inertia::share('flash', function () {
+            return [
+                'successMessage' => Session::get('successMessage'),
+            ];
+        });
+
+
         return Inertia::render('Lists/Index', [
             'lists' => WaitlistResource::collection(auth()->user()->currentLists),
         ]);
@@ -48,6 +56,6 @@ class ListsController extends Controller
 
         return response()
             ->redirectToRoute('lists.index')
-            ->with('message', 'Profile updated!');
+            ->with('successMessage', 'You have successfully created new waitlist!');
     }
 }
