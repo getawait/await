@@ -13,7 +13,7 @@ class ListsController extends Controller
     public function index()
     {
         return Inertia::render('Lists/Index', [
-            'lists' => auth()->user()->currentLists,
+            'lists' => WaitlistResource::collection(auth()->user()->currentLists),
         ]);
     }
 
