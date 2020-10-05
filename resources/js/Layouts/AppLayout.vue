@@ -22,7 +22,7 @@
               </jet-nav-link>
               <jet-nav-link
                 href="/lists"
-                :active="['lists', 'lists.create', 'lists.show'].indexOf($page.currentRouteName) >= 0"
+                :active="['lists.index', 'lists.create', 'lists.show'].indexOf($page.currentRouteName) >= 0"
               >
                 Lists
               </jet-nav-link>
