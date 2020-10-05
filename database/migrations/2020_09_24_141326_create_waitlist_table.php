@@ -14,7 +14,7 @@ class CreateWaitlistTable extends Migration
      */
     public function up()
     {
-        Schema::create('waitlist', function (Blueprint $table) {
+        Schema::create('waitlists', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
             $table->string('name');
