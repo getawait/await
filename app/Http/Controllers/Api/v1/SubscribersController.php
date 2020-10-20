@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
+use App\Rules\UniqueSubscriberEmailForWaitlist;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +14,11 @@ class SubscribersController extends Controller
     {
         $data = $request->validate([
             'waitlist' => 'required|exists:waitlists,id',
-            'email' => 'required|email',
+            'email' => [
+                'required',
+                'email',
+                new UniqueSubscriberEmailForWaitlist($request->get('waitlist')),
+            ],
             'referrer' => 'string|exists:subscribers,id',
         ]);
 

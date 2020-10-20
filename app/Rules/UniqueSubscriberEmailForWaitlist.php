@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Models\Subscriber;
 use Illuminate\Contracts\Validation\Rule;
 
 /**
@@ -9,6 +10,13 @@ use Illuminate\Contracts\Validation\Rule;
  */
 class UniqueSubscriberEmailForWaitlist implements Rule
 {
+    private string $waitlistId;
+
+    public function __construct($waitlistId)
+    {
+        $this->waitlistId = $waitlistId;
+    }
+
     /**
      * Determine if the validation rule passes.
      *
@@ -18,7 +26,9 @@ class UniqueSubscriberEmailForWaitlist implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        return !Subscriber::where('waitlist_id', $this->waitlistId)
+            ->where('email', $value)
+            ->first();
     }
 
     /**
@@ -28,6 +38,6 @@ class UniqueSubscriberEmailForWaitlist implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'This email is already on the waitlist.';
     }
 }
