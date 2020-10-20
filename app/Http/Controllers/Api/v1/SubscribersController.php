@@ -9,21 +9,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SubscribersController extends Controller
 {
-    public function index()
-    {
-        return response()->json([
-            'total' => Subscriber::count(),
-        ]);
-    }
-
     public function store(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|unique:subscribers,email',
+            'waitlist' => 'required|exists:waitlists,id',
+            'email' => 'required|email',
             'referrer' => 'string|exists:subscribers,id',
         ]);
 
         $subscriber = new Subscriber();
+        $subscriber->waitlist_id = $data['waitlist'];
         $subscriber->email = $data['email'];
         $subscriber->save();
 
