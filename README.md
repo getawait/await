@@ -10,6 +10,7 @@ Working on a startup? A new product launch? Create your own viral waiting list, 
 
 ## Installation
 ```shell script
+composer install
 php artisan await:install
 npm install
 npm run prod
