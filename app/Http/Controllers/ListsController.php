@@ -7,6 +7,7 @@ use App\Models\Waitlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class ListsController extends Controller
@@ -43,16 +44,16 @@ class ListsController extends Controller
 
         Gate::forUser($user)->authorize('create', new Waitlist());
 
-        $validatedData = $request->validate([
+        Validator::make([
+            'name' => $request->name
+        ], [
             'name' => 'required|string',
-        ]);
+        ])->validateWithBag('createList');
 
-        Waitlist::create(array_merge(
-            $validatedData,
-            [
-                'team_id' => $user->currentTeam->id,
-            ]
-        ));
+        Waitlist::create([
+            'name' => $request->name,
+            'team_id' => $user->currentTeam->id,
+        ]);
 
         return response()
             ->redirectToRoute('lists.index')

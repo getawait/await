@@ -18,7 +18,7 @@
 
     <div>
       <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-        <jet-form-section @submitted="createTeam">
+        <jet-form-section @submitted="createList">
           <template #title>
             List Details
           </template>
@@ -100,14 +100,14 @@
         form: this.$inertia.form({
           name: '',
         }, {
-          bag: 'createTeam',
+          bag: 'createList',
           resetOnSuccess: false,
         })
       }
     },
 
     methods: {
-      createTeam() {
+      createList() {
         this.form.post('/lists', {
           preserveScroll: true
         });
