@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Team;
+use App\Models\Waitlist;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,7 +20,10 @@ class SubscriberControllerTest extends TestCase
      */
     public function test_join_waitlist()
     {
+        $waitlist = Waitlist::factory()->create();
+
         $response = $this->post('/api/v1/subscribers', [
+            'waitlist' => $waitlist->id,
             'email' => $this->email,
         ]);
 
