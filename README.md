@@ -10,13 +10,7 @@ Working on a startup? A new product launch? Create your own viral waiting list, 
 
 ## Installation
 ```shell script
-composer install
-cp .env.example .env
-php artisan key:generate
-
-# Take a moment to ensure that your DB settings in your .env file are correct.
-php artisan migrate
-
+php artisan await:install
 npm install
 npm run prod
 ```
