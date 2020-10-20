@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Team;
+use App\Models\Waitlist;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,7 +20,10 @@ class SubscriberControllerTest extends TestCase
      */
     public function test_join_waitlist()
     {
+        $waitlist = Waitlist::factory()->create();
+
         $response = $this->post('/api/v1/subscribers', [
+            'waitlist' => $waitlist->id,
             'email' => $this->email,
         ]);
 
@@ -35,31 +40,27 @@ class SubscriberControllerTest extends TestCase
 
     public function test_that_you_cannot_use_the_same_email_twice()
     {
+        $waitlist = Waitlist::factory()->create();
+
         $this->postJson('/api/v1/subscribers', [
+            'waitlist' => $waitlist->id,
             'email' => $this->email,
         ]);
 
         $response = $this->postJson('/api/v1/subscribers', [
+            'waitlist' => $waitlist->id,
             'email' => $this->email,
         ]);
 
         $response->assertStatus(422);
     }
 
-    public function test_that_you_can_see_all_subscriber_data()
-    {
-        $response = $this->getJson('/api/v1/subscribers');
-
-        $response
-            ->assertStatus(200)
-            ->assertJsonStructure([
-                'total',
-            ]);
-    }
-
     public function test_that_you_can_see_your_position()
     {
+        $waitlist = Waitlist::factory()->create();
+
         $this->postJson('/api/v1/subscribers', [
+            'waitlist' => $waitlist->id,
             'email' => $this->email,
         ]);
 
