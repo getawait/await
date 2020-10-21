@@ -6,6 +6,9 @@ language: php
 php:
   - '7.4'
 
+services:
+  - mysql
+
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database laravel;'
