@@ -14,7 +14,7 @@ class UpdateSubscribersTableAddWaitlistForeignKey extends Migration
     public function up()
     {
         Schema::table('subscribers', function (Blueprint $table) {
-            $table->foreignUuid('waitlist_id')->references('id')->on('waitlists');
+            $table->foreignUuid('waitlist_id')->nullable()->references('id')->on('waitlists');
         });
     }
 
