@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Team;
 use App\Models\Waitlist;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

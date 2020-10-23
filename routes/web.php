@@ -24,5 +24,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('lists', 'ListsController')
-        ->only(['index', 'show', 'create', 'store']);
+        ->only(['index', 'create', 'store']);
+
+    Route::get('lists/{waitlist}', 'ListsController@show')
+        ->name('lists.show');
 });
