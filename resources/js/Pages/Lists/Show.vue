@@ -46,7 +46,7 @@
           You don't have any eager digital adventurers on your waitlist yet – what are you waiting for?
         </p>
 
-        <Codeblock />
+        <Codeblock :snippet="snippet" />
 
         <div class="bg-white shadow sm:rounded-lg mt-8">
           <div class="px-4 py-5 sm:p-6">
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+  import snippet from '../../Snippets/getting-started';
   import AppLayout from "../../Layouts/AppLayout";
   import SecondaryButton from "../../Jetstream/SecondaryButton";
   import BasicCard from "../../Components/BasicCard";
@@ -97,6 +98,11 @@
         required: true,
       },
     },
+    computed: {
+      snippet() {
+        return snippet;
+      }
+    }
   }
 </script>
 
