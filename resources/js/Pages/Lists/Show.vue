@@ -100,7 +100,9 @@
     },
     computed: {
       snippet() {
-        return snippet;
+        return snippet({
+          waitlistId: this.list.data.id,
+        });
       }
     }
   }

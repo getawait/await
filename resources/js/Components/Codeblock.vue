@@ -28,9 +28,9 @@
     name: "Codeblock",
     props: {
       snippet: {
-        type: Object,
+        type: Function,
         required: true,
-      }
+      },
     },
     data() {
       return {
@@ -46,7 +46,7 @@
     },
     computed: {
       code() {
-        return this.snippet[this.selectedType];
+        return this.snippet(this.selectedType);
       },
     },
   }
