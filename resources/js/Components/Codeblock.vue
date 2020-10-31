@@ -8,13 +8,6 @@
       >
         JavaScript
       </span>
-      <span
-        :class="{ 'codeblock--selected': selectedType === 'php' }"
-        class="mr-3 cursor-pointer"
-        @click="selectType('php', 'php7')"
-      >
-        PHP
-      </span>
     </div>
     <pre v-highlightjs="code"><code
       :class="`${selectedHighlightLanguage}`"

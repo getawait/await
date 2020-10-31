@@ -17,7 +17,7 @@
     </template>
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-48">
-      <div class="flex items-center justify-center h-12 w-12 rounded-full bg-indigo-500 text-white m-auto mb-2">
+      <div class="flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 text-white m-auto mb-2">
         <svg
           class="h-6 w-6"
           xmlns="http://www.w3.org/2000/svg"
@@ -97,11 +97,16 @@
         type: Object,
         required: true,
       },
+      user: {
+        type: Object,
+        required: true,
+      },
     },
     computed: {
       snippet() {
         return snippet({
           waitlistId: this.list.data.id,
+          email: this.user.email,
         });
       }
     }
