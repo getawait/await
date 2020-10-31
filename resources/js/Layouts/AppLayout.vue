@@ -103,7 +103,9 @@
                               stroke-width="2"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
-                            ><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            >
+                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                             <div>{{ team.name }}</div>
                           </div>
                         </jet-dropdown-link>
@@ -263,7 +265,9 @@
                         stroke-width="2"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                      ><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      >
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
                       <div>{{ team.name }}</div>
                     </div>
                   </jet-responsive-nav-link>
@@ -296,49 +300,47 @@
 </template>
 
 <script>
-    import JetApplicationLogo from './../Jetstream/ApplicationLogo'
-    import JetApplicationMark from './../Jetstream/ApplicationMark'
-    import JetDropdown from './../Jetstream/Dropdown'
-    import JetDropdownLink from './../Jetstream/DropdownLink'
-    import JetNavLink from './../Jetstream/NavLink'
-    import JetResponsiveNavLink from './../Jetstream/ResponsiveNavLink'
+  import JetApplicationMark from './../Jetstream/ApplicationMark'
+  import JetDropdown from './../Jetstream/Dropdown'
+  import JetDropdownLink from './../Jetstream/DropdownLink'
+  import JetNavLink from './../Jetstream/NavLink'
+  import JetResponsiveNavLink from './../Jetstream/ResponsiveNavLink'
 
-    export default {
-        components: {
-            JetApplicationLogo,
-            JetApplicationMark,
-            JetDropdown,
-            JetDropdownLink,
-            JetNavLink,
-            JetResponsiveNavLink,
-        },
+  export default {
+    components: {
+      JetApplicationMark,
+      JetDropdown,
+      JetDropdownLink,
+      JetNavLink,
+      JetResponsiveNavLink,
+    },
 
-        data() {
-            return {
-                showingNavigationDropdown: false,
-            }
-        },
+    data() {
+      return {
+        showingNavigationDropdown: false,
+      }
+    },
 
-        methods: {
-            switchToTeam(team) {
-                this.$inertia.put('/current-team', {
-                    'team_id': team.id
-                }, {
-                    preserveState: false
-                })
-            },
+    methods: {
+      switchToTeam(team) {
+        this.$inertia.put('/current-team', {
+          'team_id': team.id
+        }, {
+          preserveState: false
+        })
+      },
 
-            logout() {
-                axios.post('/logout').then(response => {
-                    window.location = '/';
-                })
-            },
-        },
+      logout() {
+        axios.post('/logout').then(response => {
+          window.location = '/';
+        })
+      },
+    },
 
-        computed: {
-            path() {
-                return window.location.pathname
-            }
-        }
+    computed: {
+      path() {
+        return window.location.pathname
+      }
     }
+  }
 </script>

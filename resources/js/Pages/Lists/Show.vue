@@ -6,13 +6,25 @@
           Viewing "{{ list.data.name }}"
         </h2>
 
-        <InertiaLink
-          href="/lists"
-        >
-          <SecondaryButton class="float-right">
-            Back
-          </SecondaryButton>
-        </InertiaLink>
+        <div class="float-right">
+          <DropdownButton>
+            <template #text>
+              Export
+            </template>
+            <template #dropdownItems>
+              <dropdown-item :href="`/lists/${list.data.id}/export`">
+                CSV (.csv)
+              </dropdown-item>
+            </template>
+          </DropdownButton>
+          <InertiaLink
+            href="/lists"
+          >
+            <SecondaryButton>
+              Back
+            </SecondaryButton>
+          </InertiaLink>
+        </div>
       </div>
     </template>
 
@@ -88,7 +100,9 @@
           <TableData>{{ row.email }}</TableData>
           <TableData>
             <span v-if="row.referrer">{{ row.referrer }}</span>
-            <danger-badge v-else>No referrer</danger-badge>
+            <danger-badge v-else>
+              No referrer
+            </danger-badge>
           </TableData>
           <TableData>
             <danger-button>Delete</danger-button>
@@ -108,10 +122,14 @@
   import TableData from "../../Components/TableData";
   import DangerButton from "../../Components/DangerButton";
   import DangerBadge from "../../Components/DangerBadge";
+  import DropdownButton from "../../Components/DropdownButton";
+  import DropdownItem from "../../Components/DropdownItem";
 
   export default {
     name: "Show",
     components: {
+      DropdownItem,
+      DropdownButton,
       DangerBadge,
       DangerButton,
       TableData,
