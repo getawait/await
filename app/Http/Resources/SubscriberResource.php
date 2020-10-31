@@ -18,6 +18,8 @@ class SubscriberResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'email' => $this->email,
+            'referrer' => new SubscriberResource(Subscriber::find($this->referrer_id)),
         ];
     }
 }

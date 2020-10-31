@@ -16,7 +16,10 @@
       </div>
     </template>
 
-    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-48">
+    <div
+      v-if="showWelcomePage"
+      class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-48"
+    >
       <div class="flex items-center justify-center h-12 w-12 rounded-full bg-gradient-to-r from-teal-400 to-blue-500 text-white m-auto mb-2">
         <svg
           class="h-6 w-6"
@@ -46,7 +49,7 @@
           You don't have any eager digital adventurers on your waitlist yet – what are you waiting for?
         </p>
 
-        <Codeblock :snippet="snippet" />
+        <Codeblock :snippet="snippet"/>
 
         <div class="bg-white shadow sm:rounded-lg mt-8">
           <div class="px-4 py-5 sm:p-6">
@@ -74,6 +77,25 @@
         </div>
       </div>
     </div>
+    <div
+      v-else
+      class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
+    >
+      <Table
+        :column-names="[ 'Email address', 'Referred' , 'Actions' ]"
+      >
+        <tr v-for="row in rows">
+          <TableData>{{ row.email }}</TableData>
+          <TableData>
+            <span v-if="row.referrer">{{ row.referrer }}</span>
+            <danger-badge v-else>No referrer</danger-badge>
+          </TableData>
+          <TableData>
+            <danger-button>Delete</danger-button>
+          </TableData>
+        </tr>
+      </Table>
+    </div>
   </AppLayout>
 </template>
 
@@ -81,14 +103,20 @@
   import snippet from '../../Snippets/getting-started';
   import AppLayout from "../../Layouts/AppLayout";
   import SecondaryButton from "../../Jetstream/SecondaryButton";
-  import BasicCard from "../../Components/BasicCard";
   import Codeblock from "../../Components/Codeblock";
+  import Table from "../../Components/Table";
+  import TableData from "../../Components/TableData";
+  import DangerButton from "../../Components/DangerButton";
+  import DangerBadge from "../../Components/DangerBadge";
 
   export default {
     name: "Show",
     components: {
+      DangerBadge,
+      DangerButton,
+      TableData,
+      Table,
       Codeblock,
-      BasicCard,
       SecondaryButton,
       AppLayout
     },
@@ -108,7 +136,16 @@
           waitlistId: this.list.data.id,
           email: this.user.email,
         });
-      }
+      },
+      showWelcomePage() {
+        return this.list.data.subscribers.length === 0;
+      },
+      rows() {
+        return this.list.data.subscribers.map(subscriber => ({
+          email: subscriber.email,
+          referrer: subscriber.referrer ? subscriber.referrer.email : false,
+        }));
+      },
     }
   }
 </script>
