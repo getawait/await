@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Utils\MoveElement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $referrer
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Subscriber extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'subscribers';
 
     public function getPosition(): int
@@ -34,5 +37,10 @@ class Subscriber extends Model
                     ->where('id', $this->id)
                     ->toArray()
             ) + 1;
+    }
+
+    public function waitlist()
+    {
+        return $this->belongsTo(Waitlist::class);
     }
 }

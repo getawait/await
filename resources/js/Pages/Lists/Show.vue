@@ -61,7 +61,7 @@
           You don't have any eager digital adventurers on your waitlist yet – what are you waiting for?
         </p>
 
-        <Codeblock :snippet="snippet"/>
+        <Codeblock :snippet="snippet" />
 
         <div class="bg-white shadow sm:rounded-lg mt-8">
           <div class="px-4 py-5 sm:p-6">
@@ -93,10 +93,21 @@
       v-else
       class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
     >
+      <Alert
+        v-for="(flash, key) in $page.flash"
+        :key="key"
+        class="mb-4"
+        title="Yaay!"
+        :message="flash"
+      />
+
       <Table
         :column-names="[ 'Email address', 'Referred' , 'Actions' ]"
       >
-        <tr v-for="row in rows">
+        <tr
+          v-for="row in rows"
+          :key="row.id"
+        >
           <TableData>{{ row.email }}</TableData>
           <TableData>
             <span v-if="row.referrer">{{ row.referrer }}</span>
@@ -105,7 +116,9 @@
             </danger-badge>
           </TableData>
           <TableData>
-            <danger-button>Delete</danger-button>
+            <danger-button @click.native="deleteSubscriber(row.id)">
+              Delete
+            </danger-button>
           </TableData>
         </tr>
       </Table>
@@ -124,10 +137,12 @@
   import DangerBadge from "../../Components/DangerBadge";
   import DropdownButton from "../../Components/DropdownButton";
   import DropdownItem from "../../Components/DropdownItem";
+  import Alert from "../../Components/Alert";
 
   export default {
     name: "Show",
     components: {
+      Alert,
       DropdownItem,
       DropdownButton,
       DangerBadge,
@@ -160,11 +175,18 @@
       },
       rows() {
         return this.list.data.subscribers.map(subscriber => ({
+          id: subscriber.id,
           email: subscriber.email,
           referrer: subscriber.referrer ? subscriber.referrer.email : false,
         }));
       },
-    }
+    },
+    methods: {
+      deleteSubscriber(id) {
+        console.log('hello world');
+        this.$inertia.delete(`/subscribers/${ id }`);
+      },
+    },
   }
 </script>
 
