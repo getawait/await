@@ -61,7 +61,7 @@
           You don't have any eager digital adventurers on your waitlist yet – what are you waiting for?
         </p>
 
-        <Codeblock :snippet="snippet" />
+        <Codeblock :snippet="snippet"/>
 
         <div class="bg-white shadow sm:rounded-lg mt-8">
           <div class="px-4 py-5 sm:p-6">
@@ -116,7 +116,7 @@
             </danger-badge>
           </TableData>
           <TableData>
-            <danger-button @click.native="deleteSubscriber(row.id)">
+            <danger-button @click.native="deleteSubscriber(row.id, row.email)">
               Delete
             </danger-button>
           </TableData>
@@ -182,9 +182,10 @@
       },
     },
     methods: {
-      deleteSubscriber(id) {
-        console.log('hello world');
-        this.$inertia.delete(`/subscribers/${ id }`);
+      deleteSubscriber(id, email) {
+        if (confirm(`Are you sure that you would like to delete the following subscriber: "${ email }"`)) {
+          this.$inertia.delete(`/subscribers/${ id }`);
+        }
       },
     },
   }
