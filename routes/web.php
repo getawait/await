@@ -24,5 +24,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('lists', 'ListsController')
-        ->only(['index', 'show', 'create', 'store']);
+        ->only(['index', 'create', 'store']);
+
+    Route::get('lists/{waitlist}', 'ListsController@show')
+        ->name('lists.show');
+
+    Route::get('lists/{waitlist}/export', 'ListsController@export')
+        ->name('lists.export');
+
+    // Subscribers
+    Route::delete('subscribers/{subscriber}', 'SubscribersController@delete')
+        ->name('subscribers.delete');
 });

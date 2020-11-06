@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SubscribersExport;
 use App\Http\Resources\WaitlistResource;
 use App\Models\Waitlist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
@@ -58,5 +60,14 @@ class ListsController extends Controller
         return response()
             ->redirectToRoute('lists.index')
             ->with('successMessage', 'You have successfully created new waitlist!');
+    }
+
+    public function export(Waitlist $waitlist)
+    {
+        // todo: IMPORTANT! check for permissions
+
+        $fileName = $waitlist->name . '-' . Carbon::now()->toString() . '.csv';
+
+        return (new SubscribersExport($waitlist))->download($fileName);
     }
 }
