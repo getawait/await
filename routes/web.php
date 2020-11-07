@@ -19,9 +19,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia\Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@index')
+        ->name('dashboard');
 
     Route::resource('lists', 'ListsController')
         ->only(['index', 'create', 'store']);
