@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -58,7 +59,50 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function currentLists() {
+    public function currentLists()
+    {
         return $this->currentTeam->lists();
+    }
+
+    public function activeLists()
+    {
+        return $this->currentTeam->lists()->where('is_active', true);
+    }
+
+    /**
+     * The list of all the subscribers across all of the users' lists
+     */
+    public function activeListsSubscribers(): Collection
+    {
+        $subscribers = collect();
+
+        $lists = $this->currentTeam->lists()->get();
+
+        foreach ($lists as $list) {
+            $subscribers = $subscribers->merge($list->subscribers()->get());
+        }
+
+        return $subscribers;
+    }
+
+    /**
+     * The percentage of users whom have been referred by another user
+     */
+    public function subscribersReferralRate()
+    {
+        $referredCount = 0;
+        $subscribers = $this->activeListsSubscribers();
+
+        $subscribers->each(function (Subscriber $subscriber) use (&$referredCount) {
+            if ($subscriber->was_referred) {
+                $referredCount++;
+            }
+        });
+
+        if ($referredCount === 0) {
+            return 0;
+        }
+
+        return round(($referredCount / $subscribers->count()) * 100, 2);
     }
 }

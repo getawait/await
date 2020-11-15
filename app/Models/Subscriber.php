@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Subscriber extends Model
 {
-    use SoftDeletes;
-
     protected $table = 'subscribers';
 
     public function getPosition(): int
@@ -42,5 +40,13 @@ class Subscriber extends Model
     public function waitlist()
     {
         return $this->belongsTo(Waitlist::class);
+    }
+
+    /**
+     * Get the list of subscribers this subscriber has referred
+     */
+    public function referred()
+    {
+        return $this->hasMany(Subscriber::class, 'referrer_id');
     }
 }

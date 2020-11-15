@@ -76,7 +76,7 @@
             <div class="mt-5">
               <span class="inline-flex rounded-md shadow-sm">
                 <a
-                  href="https://docs.getawait.com"
+                  href="https://await.readme.io/"
                   type="button"
                   target="_blank"
                   class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
@@ -110,7 +110,12 @@
         >
           <TableData>{{ row.email }}</TableData>
           <TableData>
-            <span v-if="row.referrer">{{ row.referrer }}</span>
+            <span v-if="row.referrer">
+              {{ row.referrer }}
+            </span>
+            <span v-else-if="row.was_referred">
+              Yes, but referrer was deleted
+            </span>
             <danger-badge v-else>
               No referrer
             </danger-badge>
@@ -178,6 +183,7 @@
           id: subscriber.id,
           email: subscriber.email,
           referrer: subscriber.referrer ? subscriber.referrer.email : false,
+          was_referred: subscriber.was_referred,
         }));
       },
     },
