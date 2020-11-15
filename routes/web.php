@@ -28,6 +28,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('lists/{waitlist}', 'ListsController@show')
         ->name('lists.show');
 
+    Route::delete('lists/{waitlist}', 'ListsController@delete')
+        ->name('lists.delete');
+
     Route::get('lists/{waitlist}/export', 'ListsController@export')
         ->name('lists.export');
 

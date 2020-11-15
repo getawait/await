@@ -20,4 +20,13 @@ class TeamFactory extends Factory
             'personal_team' => true,
         ];
     }
+
+    public function withTeamMembers()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'personal_team' => false,
+            ];
+        });
+    }
 }

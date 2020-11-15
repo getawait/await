@@ -70,4 +70,21 @@ class ListsController extends Controller
 
         return (new SubscribersExport($waitlist))->download($fileName);
     }
+
+    public function delete(Waitlist $waitlist)
+    {
+        if (!auth()->user()->can('delete', $waitlist)) {
+            return response('You are not allowed to delete this waitlist!', 403);
+        }
+
+        $waitlist->delete();
+
+        Inertia::share('flash', function () {
+            return [
+                'successMessage' => 'Successfully deleted waitlist!',
+            ];
+        });
+
+        return Inertia::render('Lists/Index');
+    }
 }
