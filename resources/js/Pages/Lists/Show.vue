@@ -7,7 +7,7 @@
         </h2>
 
         <div class="float-right">
-          <DropdownButton>
+          <DropdownButton v-if="!showWelcomePage">
             <template #text>
               Export
             </template>
