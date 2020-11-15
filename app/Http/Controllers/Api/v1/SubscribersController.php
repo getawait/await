@@ -25,11 +25,13 @@ class SubscribersController extends Controller
         $subscriber = new Subscriber();
         $subscriber->waitlist_id = $data['waitlist'];
         $subscriber->email = $data['email'];
-        $subscriber->save();
 
         if (isset($data['referrer'])) {
-            $subscriber->referrer = $data['referrer'];
+            $subscriber->referrer_id = $data['referrer'];
+            $subscriber->was_referred = true;
         }
+
+        $subscriber->save();
 
         return response()->json([
             'position' => $subscriber->getPosition(),

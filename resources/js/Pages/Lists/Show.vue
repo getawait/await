@@ -110,7 +110,12 @@
         >
           <TableData>{{ row.email }}</TableData>
           <TableData>
-            <span v-if="row.referrer">{{ row.referrer }}</span>
+            <span v-if="row.referrer">
+              {{ row.referrer }}
+            </span>
+            <span v-else-if="row.was_referred">
+              Yes, but referrer was deleted
+            </span>
             <danger-badge v-else>
               No referrer
             </danger-badge>
@@ -178,6 +183,7 @@
           id: subscriber.id,
           email: subscriber.email,
           referrer: subscriber.referrer ? subscriber.referrer.email : false,
+          was_referred: subscriber.was_referred,
         }));
       },
     },

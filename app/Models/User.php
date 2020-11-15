@@ -94,11 +94,15 @@ class User extends Authenticatable
         $subscribers = $this->activeListsSubscribers();
 
         $subscribers->each(function (Subscriber $subscriber) use (&$referredCount) {
-            if ($subscriber->referrer_id) {
+            if ($subscriber->was_referred) {
                 $referredCount++;
             }
         });
 
-        return ($referredCount / $subscribers->count()) * 100;
+        if ($referredCount === 0) {
+            return 0;
+        }
+
+        return round(($referredCount / $subscribers->count()) * 100, 2);
     }
 }

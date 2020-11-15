@@ -20,6 +20,7 @@ class SubscriberResource extends JsonResource
             'id' => $this->id,
             'email' => $this->email,
             'referrer' => new SubscriberResource(Subscriber::find($this->referrer_id)),
+            'was_referred' => $this->was_referred,
         ];
     }
 }

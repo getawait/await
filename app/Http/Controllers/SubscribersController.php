@@ -13,6 +13,9 @@ class SubscribersController extends Controller
     {
         // todo: permissions
 
+        Subscriber::where('referrer_id', $subscriber->id)
+            ->update(['referrer_id' => null]);
+
         $subscriber->delete();
 
         Inertia::share('flash', function () {
