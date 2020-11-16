@@ -24,14 +24,53 @@ class WaitlistTest extends TestCase
         $this->assertDeleted($waitlist);
     }
 
-    public function test_waitlist_cannot_be_deleted_by_team_member()
+    public function test_waitlist_can_be_deleted_by_admin()
     {
         $waitlist = Waitlist::factory()->create();
         $team = $waitlist->team;
         $teamMember = User::factory()->create();
         $team->users()->attach(
             $teamMember,
-            ['role' => null]
+            ['role' => 'admin']
+        );
+        $team->save();
+
+        $this
+            ->actingAs($teamMember)
+            ->delete('/lists/' . $waitlist->id);
+
+        $this->assertDeleted($waitlist);
+    }
+
+    public function test_waitlist_cannot_be_deleted_by_editor()
+    {
+        $waitlist = Waitlist::factory()->create();
+        $team = $waitlist->team;
+        $teamMember = User::factory()->create();
+        $team->users()->attach(
+            $teamMember,
+            ['role' => 'editor']
+        );
+        $team->save();
+
+        $response = $this
+            ->actingAs($teamMember)
+            ->delete('/lists/' . $waitlist->id);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('waitlists', [
+            'id' => $waitlist->id,
+        ]);
+    }
+
+    public function test_waitlist_cannot_be_deleted_by_viewer()
+    {
+        $waitlist = Waitlist::factory()->create();
+        $team = $waitlist->team;
+        $teamMember = User::factory()->create();
+        $team->users()->attach(
+            $teamMember,
+            ['role' => 'readonly']
         );
         $team->save();
 

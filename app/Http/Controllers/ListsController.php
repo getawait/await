@@ -30,6 +30,10 @@ class ListsController extends Controller
 
     public function show(Waitlist $waitlist)
     {
+        if (!auth()->user()->can('view', $waitlist)) {
+            return response('You are not allowed to view this waitlist!', 403);
+        }
+
         return Inertia::render('Lists/Show', [
             'list' => new WaitlistResource($waitlist),
         ]);
@@ -64,7 +68,9 @@ class ListsController extends Controller
 
     public function export(Waitlist $waitlist)
     {
-        // todo: IMPORTANT! check for permissions
+        if (!auth()->user()->can('view', $waitlist)) {
+            return response('You are not allowed to view this waitlist!', 403);
+        }
 
         $fileName = $waitlist->name . '-' . Carbon::now()->toString() . '.csv';
 

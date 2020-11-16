@@ -12,29 +12,27 @@ class ListPolicy
 
     public function view(User $user, Waitlist $waitlist)
     {
-        return $user->belongsToTeam($waitlist->team);
+        $team = $waitlist->team;
+
+        return $user->belongsToTeam($team) && $user->hasTeamPermission($team, 'view');
     }
 
     public function create(User $user)
     {
-        return true;
+       return $user->hasTeamPermission($user->currentTeam, 'create');
     }
 
     public function update(User $user, Waitlist $waitlist)
     {
-        return $user->belongsToTeam($waitlist->team);
+        $team = $waitlist->team;
+
+        return $user->belongsToTeam($team) && $user->hasTeamPermission($team, 'update');
     }
 
-    /**
-     * Only the user that owns the team that the waitlist is associated with, can delete the waitlist
-     *
-     * @param User     $user
-     * @param Waitlist $waitlist
-     *
-     * @return bool
-     */
     public function delete(User $user, Waitlist $waitlist)
     {
-        return $user->ownsTeam($waitlist->team);
+        $team = $waitlist->team;
+
+        return $user->belongsToTeam($team) && $user->hasTeamPermission($team, 'delete');
     }
 }
