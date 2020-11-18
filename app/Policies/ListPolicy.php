@@ -14,7 +14,7 @@ class ListPolicy
     {
         $team = $waitlist->team;
 
-        return $user->belongsToTeam($team) && $user->hasTeamPermission($team, 'view');
+        return $user->belongsToTeam($team) && $user->hasTeamPermission($team, 'read');
     }
 
     public function create(User $user)

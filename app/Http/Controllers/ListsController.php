@@ -51,9 +51,11 @@ class ListsController extends Controller
 
     public function store(Request $request)
     {
-        $user = auth()->user();
+        if (!auth()->user()->can('create', Waitlist::class)) {
+            return response('You are not allowed to create a waitlist!', 403);
+        }
 
-        Gate::forUser($user)->authorize('create', new Waitlist());
+        $user = auth()->user();
 
         Validator::make([
             'name' => $request->name

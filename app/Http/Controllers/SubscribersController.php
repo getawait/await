@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
-use Inertia\Inertia;
 
 class SubscribersController extends Controller
 {

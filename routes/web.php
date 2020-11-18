@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListsController;
+use Laravel\Fortify\Fortify;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\ListsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->redirectTo('/login');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
