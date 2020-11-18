@@ -20,7 +20,7 @@ class SubscriberTest extends TestCase
             ->actingAs($owner)
             ->delete('/subscribers/' . $subscriber->id);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
         $this->assertDeleted($subscriber);
     }
 
