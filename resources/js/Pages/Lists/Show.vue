@@ -94,11 +94,10 @@
       class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
     >
       <Alert
-        v-for="(flash, key) in $page.flash"
-        :key="key"
+        v-if="$page.flash.successMessage"
         class="mb-4"
         title="Yaay!"
-        :message="flash"
+        :message="$page.flash.successMessage"
       />
 
       <Table

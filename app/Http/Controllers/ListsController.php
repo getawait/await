@@ -33,6 +33,12 @@ class ListsController extends Controller
             return response('You are not allowed to view this waitlist!', 403);
         }
 
+        Inertia::share('flash', function () {
+            return [
+                'successMessage' => Session::get('successMessage'),
+            ];
+        });
+
         return Inertia::render('Lists/Show', [
             'list' => new WaitlistResource($waitlist),
         ]);
