@@ -22,7 +22,6 @@ class ListsController extends Controller
             ];
         });
 
-
         return Inertia::render('Lists/Index', [
             'lists' => WaitlistResource::collection(auth()->user()->currentLists),
         ]);
