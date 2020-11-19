@@ -8,7 +8,9 @@ Disclaimer: The project is still actively in development, and is rough around th
 
 ## Prerequisites
 - PHP 7.4
-- SQLite/MySQL Server (Preferred)
+- MySQL Server (Preferred) / SQLite
+- Composer
+- Node.js/NPM
 
 ## Installation
 ```shell script

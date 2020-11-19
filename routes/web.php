@@ -19,7 +19,7 @@ Route::get('/', function () {
     return response()->redirectTo('/login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'inertia'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')
         ->name('dashboard');
 

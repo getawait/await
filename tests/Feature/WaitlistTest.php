@@ -33,6 +33,7 @@ class WaitlistTest extends TestCase
             $teamMember,
             ['role' => 'admin']
         );
+        $teamMember->switchTeam($team);
         $team->save();
 
         $this
@@ -51,6 +52,7 @@ class WaitlistTest extends TestCase
             $teamMember,
             ['role' => 'editor']
         );
+        $teamMember->switchTeam($team);
         $team->save();
 
         $response = $this
@@ -72,6 +74,7 @@ class WaitlistTest extends TestCase
             $teamMember,
             ['role' => 'readonly']
         );
+        $teamMember->switchTeam($team);
         $team->save();
 
         $response = $this
