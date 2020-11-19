@@ -7,6 +7,7 @@
         </h2>
 
         <InertiaLink
+          v-if="$page.can('create')"
           href="/lists/create"
         >
           <Button class="float-right">
@@ -106,7 +107,7 @@
     },
     props: {
       lists: {
-        type: Array,
+        type: Object,
         required: true,
       },
     },

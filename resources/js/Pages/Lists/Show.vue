@@ -101,7 +101,7 @@
       />
 
       <Table
-        :column-names="[ 'Email address', 'Referred' , 'Actions' ]"
+        :column-names="columns"
       >
         <tr
           v-for="row in rows"
@@ -119,8 +119,12 @@
               No referrer
             </danger-badge>
           </TableData>
-          <TableData>
-            <danger-button @click.native="deleteSubscriber(row.id, row.email)">
+          <TableData
+            v-if="$page.can('delete')"
+          >
+            <danger-button
+              @click.native="deleteSubscriber(row.id, row.email)"
+            >
               Delete
             </danger-button>
           </TableData>
@@ -185,6 +189,15 @@
           was_referred: subscriber.was_referred,
         }));
       },
+      columns() {
+        let columns = ['Email address', 'Referred'];
+
+        if (this.$page.can('delete')) {
+          columns.push('Actions');
+        }
+
+        return columns;
+      }
     },
     methods: {
       deleteSubscriber(id, email) {
