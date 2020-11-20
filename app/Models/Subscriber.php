@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Utils\MoveElement;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,10 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Subscriber extends Model
 {
+    use HasFactory;
+
     protected $table = 'subscribers';
 
     public function getPosition(): int
     {
+        // todo
         $subscribers = Subscriber::all()->sortBy('created_at');
 
         foreach ($subscribers as $subscriber) {

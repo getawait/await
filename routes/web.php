@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ListsController;
+use Laravel\Fortify\Fortify;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,10 @@ use App\Http\Controllers\ListsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->redirectTo('/login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'inertia'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')
         ->name('dashboard');
 
@@ -27,6 +28,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('lists/{waitlist}', 'ListsController@show')
         ->name('lists.show');
+
+    Route::delete('lists/{waitlist}', 'ListsController@delete')
+        ->name('lists.delete');
 
     Route::get('lists/{waitlist}/export', 'ListsController@export')
         ->name('lists.export');

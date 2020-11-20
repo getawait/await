@@ -22,7 +22,6 @@ class ListsController extends Controller
             ];
         });
 
-
         return Inertia::render('Lists/Index', [
             'lists' => WaitlistResource::collection(auth()->user()->currentLists),
         ]);
@@ -30,6 +29,16 @@ class ListsController extends Controller
 
     public function show(Waitlist $waitlist)
     {
+        if (!auth()->user()->can('view', $waitlist)) {
+            return response('You are not allowed to view this waitlist!', 403);
+        }
+
+        Inertia::share('flash', function () {
+            return [
+                'successMessage' => Session::get('successMessage'),
+            ];
+        });
+
         return Inertia::render('Lists/Show', [
             'list' => new WaitlistResource($waitlist),
         ]);
@@ -42,9 +51,11 @@ class ListsController extends Controller
 
     public function store(Request $request)
     {
-        $user = auth()->user();
+        if (!auth()->user()->can('create', Waitlist::class)) {
+            return response('You are not allowed to create a waitlist!', 403);
+        }
 
-        Gate::forUser($user)->authorize('create', new Waitlist());
+        $user = auth()->user();
 
         Validator::make([
             'name' => $request->name
@@ -64,10 +75,29 @@ class ListsController extends Controller
 
     public function export(Waitlist $waitlist)
     {
-        // todo: IMPORTANT! check for permissions
+        if (!auth()->user()->can('view', $waitlist)) {
+            return response('You are not allowed to view this waitlist!', 403);
+        }
 
         $fileName = $waitlist->name . '-' . Carbon::now()->toString() . '.csv';
 
         return (new SubscribersExport($waitlist))->download($fileName);
+    }
+
+    public function delete(Waitlist $waitlist)
+    {
+        if (!auth()->user()->can('delete', $waitlist)) {
+            return response('You are not allowed to delete this waitlist!', 403);
+        }
+
+        $waitlist->delete();
+
+        Inertia::share('flash', function () {
+            return [
+                'successMessage' => 'Successfully deleted waitlist!',
+            ];
+        });
+
+        return Inertia::render('Lists/Index');
     }
 }

@@ -7,7 +7,7 @@
         </h2>
 
         <div class="float-right">
-          <DropdownButton>
+          <DropdownButton v-if="!showWelcomePage">
             <template #text>
               Export
             </template>
@@ -94,15 +94,14 @@
       class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
     >
       <Alert
-        v-for="(flash, key) in $page.flash"
-        :key="key"
+        v-if="$page.flash.successMessage"
         class="mb-4"
         title="Yaay!"
-        :message="flash"
+        :message="$page.flash.successMessage"
       />
 
       <Table
-        :column-names="[ 'Email address', 'Referred' , 'Actions' ]"
+        :column-names="columns"
       >
         <tr
           v-for="row in rows"
@@ -120,8 +119,12 @@
               No referrer
             </danger-badge>
           </TableData>
-          <TableData>
-            <danger-button @click.native="deleteSubscriber(row.id, row.email)">
+          <TableData
+            v-if="$page.can('delete')"
+          >
+            <danger-button
+              @click.native="deleteSubscriber(row.id, row.email)"
+            >
               Delete
             </danger-button>
           </TableData>
@@ -186,6 +189,15 @@
           was_referred: subscriber.was_referred,
         }));
       },
+      columns() {
+        let columns = ['Email address', 'Referred'];
+
+        if (this.$page.can('delete')) {
+          columns.push('Actions');
+        }
+
+        return columns;
+      }
     },
     methods: {
       deleteSubscriber(id, email) {

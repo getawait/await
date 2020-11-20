@@ -24,6 +24,13 @@ Vue.use(PortalVue);
 Vue.use(VueHighlightJS)
 
 const app = document.getElementById('app');
+const can = (permissions = []) => (permission) => {
+  if (permissions.includes('*')) {
+    return true;
+  }
+
+  return permissions.includes(permission);
+}
 
 new Vue({
     render: (h) =>
@@ -31,6 +38,12 @@ new Vue({
             props: {
                 initialPage: JSON.parse(app.dataset.page),
                 resolveComponent: (name) => require(`./Pages/${name}`).default,
+                transformProps: props => {
+                  return {
+                    ...props,
+                    can: can(props.user.permissions),
+                  }
+                },
             },
         }),
 }).$mount(app);

@@ -52,12 +52,16 @@ class JetstreamServiceProvider extends ServiceProvider
             'read',
             'update',
             'delete',
-        ])->description('Administrator users can perform any action.');
+        ])->description('Administrator users can perform any action, including deletion.');
 
         Jetstream::role('editor', 'Editor', [
             'read',
             'create',
             'update',
         ])->description('Editor users have the ability to read, create, and update.');
+
+        Jetstream::role('readonly', 'Readonly', [
+            'read',
+        ])->description('Readonly users can view and export data, but cannot modify it in any way.');
     }
 }
