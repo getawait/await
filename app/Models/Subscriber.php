@@ -19,8 +19,10 @@ class Subscriber extends Model
 
     public function getPosition(): int
     {
-        // todo
-        $subscribers = Subscriber::all()->sortBy('created_at');
+        $subscribers = $this
+            ->waitlist
+            ->subscribers
+            ->sortBy('created_at');
 
         foreach ($subscribers as $subscriber) {
             $subscriber->modifier = $subscribers

@@ -65,7 +65,7 @@ class SubscriberTest extends TestCase
         ]);
     }
 
-    public function test_waitlist_cannot_be_deleted_by_viewer()
+    public function test_subscriber_cannot_be_deleted_by_viewer()
     {
         $subscriber = Subscriber::factory()->create();
         $team = $subscriber->waitlist->team;
@@ -87,7 +87,7 @@ class SubscriberTest extends TestCase
         ]);
     }
 
-    public function test_waitlist_cannot_be_deleted_by_random_user()
+    public function test_subscriber_cannot_be_deleted_by_random_user()
     {
         $subscriber = Subscriber::factory()->create();
         $randomUser = User::factory()->create();
@@ -102,7 +102,7 @@ class SubscriberTest extends TestCase
         ]);
     }
 
-    public function test_waitlist_cannot_be_deleted_by_unauthenticated_user()
+    public function test_subscriber_cannot_be_deleted_by_unauthenticated_user()
     {
         $subscriber = Subscriber::factory()->create();
 
