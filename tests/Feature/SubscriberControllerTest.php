@@ -107,7 +107,7 @@ class SubscriberControllerTest extends TestCase
             'email' => $this->email,
         ]);
 
-        $response = $this->getJson('/api/v1/subscribers/' . $this->email);
+        $response = $this->getJson('/api/v1/subscribers/1');
 
         $response
             ->assertStatus(200)
@@ -132,8 +132,8 @@ class SubscriberControllerTest extends TestCase
             'email' => $this->email,
         ]);
 
-        $anotherResponse = $this->getJson('/api/v1/subscribers/another@email.com');
-        $response = $this->getJson('/api/v1/subscribers/' . $this->email);
+        $anotherResponse = $this->getJson('/api/v1/subscribers/1');
+        $response = $this->getJson('/api/v1/subscribers/2');
 
         $anotherResponse
             ->assertStatus(200)

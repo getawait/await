@@ -7,7 +7,6 @@ use App\Http\Resources\WaitlistResource;
 use App\Models\Waitlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;

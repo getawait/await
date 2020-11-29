@@ -23,6 +23,6 @@ Route::prefix('v1')
         Route::prefix('subscribers')->group(function () {
             Route::get('', 'SubscribersController@index');
             Route::post('', 'SubscribersController@store');
-            Route::get('/{subscriber:email}', 'SubscribersController@show');
+            Route::get('/{subscriber:id}', 'SubscribersController@show');
         });
     });
