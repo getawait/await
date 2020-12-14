@@ -29,13 +29,13 @@ The project is using Laravel, Vue & Tailwind. Don't worry if you've got no exper
 ### New feature
 There's a semi-useful kanban board of the things I'd love to see in Await. If what you're looking to build is not there, it may be worth using our "discussions" feature, or even better, hop on Discord and let's chat!
 
-**Board**: https://github.com/getawait/await/projects  
-**Discussions**: https://github.com/getawait/await/discussions  
-**Discord**: https://discord.gg/PhtUHnx9nk
+[Board](https://github.com/getawait/await/projects)  
+[Discussions](https://github.com/getawait/await/discussions)   
+[Discord](https://discord.gg/PhtUHnx9nk)
 
 ### Bugfix
 Before starting work any piece of bug, be sure to see if there's already an issue open for it. If there isn't, open one, then open your pull request referencing the issue ID.
 
-**Example**: https://github.com/getawait/await/pull/14
+[An example bugfix pull request](https://github.com/getawait/await/pull/14)
 
 ![Image](resources/images/gh-resolves.png)
