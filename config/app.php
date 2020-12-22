@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'user_feedback_enabled' => env('USER_FEEDBACK_ENABLED', false),
 
     /*
     |--------------------------------------------------------------------------

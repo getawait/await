@@ -18,7 +18,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
 
-        @if(env('USER_FEEDBACK_ENABLED'))
+        @if(config('app.user_feedback_enabled'))
         <script src="https://sak.userreport.com/await/launcher.js" async id="userreport-launcher-script"></script>
         @endif
     </head>
