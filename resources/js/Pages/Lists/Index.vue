@@ -7,7 +7,7 @@
         </h2>
 
         <InertiaLink
-          v-if="$page.can('create')"
+          v-if="$page.props.can('create')"
           href="/lists/create"
         >
           <Button class="float-right">
@@ -19,10 +19,10 @@
 
     <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
       <Alert
-        v-if="$page.flash.successMessage"
+        v-if="$page.props.flash.successMessage"
         class="mb-4"
         title="Yaay!"
-        :message="$page.flash.successMessage"
+        :message="$page.props.flash.successMessage"
       />
 
       <div class="flex flex-col">

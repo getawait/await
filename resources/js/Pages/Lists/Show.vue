@@ -102,10 +102,10 @@
       class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8"
     >
       <Alert
-        v-if="$page.flash.successMessage"
+        v-if="$page.props.flash.successMessage"
         class="mb-4"
         title="Yaay!"
-        :message="$page.flash.successMessage"
+        :message="$page.props.flash.successMessage"
       />
 
       <Table
@@ -128,7 +128,7 @@
             </danger-badge>
           </TableData>
           <TableData
-            v-if="$page.can('delete')"
+            v-if="$page.props.can('delete')"
           >
             <danger-button
               @click.native="deleteSubscriber(row.id, row.email)"
@@ -202,7 +202,7 @@ export default {
     columns() {
       let columns = ['Email address', 'Referred'];
 
-      if (this.$page.can('delete')) {
+      if (this.$page.props.can('delete')) {
         columns.push('Actions');
       }
 
