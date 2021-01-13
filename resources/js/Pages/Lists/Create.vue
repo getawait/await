@@ -30,7 +30,7 @@
           <template #form>
             <div class="col-span-6">
               <jet-label value="List Owner (Team)" />
-              <div class="mt-2">{{ $page.user.current_team.name }}</div>
+              <div class="mt-2">{{ $page.props.user.current_team.name }}</div>
             </div>
 
             <div class="col-span-6 sm:col-span-4">

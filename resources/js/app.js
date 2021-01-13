@@ -2,8 +2,7 @@ require('./bootstrap');
 
 import Vue from 'vue';
 
-import { InertiaApp } from '@inertiajs/inertia-vue';
-import { InertiaForm } from 'laravel-jetstream';
+import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue';
 import PortalVue from 'portal-vue';
 import VueHighlightJS from 'vue-highlightjs';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -18,8 +17,8 @@ Vue.component('FontAwesomeIcon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
-Vue.use(InertiaApp);
-Vue.use(InertiaForm);
+Vue.mixin({ methods: { route } });
+Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.use(VueHighlightJS)
 
@@ -41,7 +40,7 @@ new Vue({
                 transformProps: props => {
                   return {
                     ...props,
-                    can: can(props.user.permissions),
+                    can: props.user ? can(props.user.permissions) : null,
                   }
                 },
             },
