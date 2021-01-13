@@ -21,7 +21,7 @@
         "@inertiajs/inertia": "^0.8.2",
         "@inertiajs/inertia-vue": "^0.5.4",
         "@tailwindcss/ui": "^0.1.4",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "cross-env": "^7.0",
         "laravel-jetstream": "^1.2.0",
         "laravel-mix": "^5.0.1",
