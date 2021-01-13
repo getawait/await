@@ -16,13 +16,13 @@
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
               <jet-nav-link
                 href="/dashboard"
-                :active="$page.props.currentRouteName == 'dashboard'"
+                :active="$page.url.includes('dashboard')"
               >
                 Dashboard
               </jet-nav-link>
               <jet-nav-link
                 href="/lists"
-                :active="['lists.index', 'lists.create', 'lists.show'].indexOf($page.props.currentRouteName) >= 0"
+                :active="$page.url.includes('lists')"
               >
                 Lists
               </jet-nav-link>
@@ -166,9 +166,15 @@
         <div class="pt-2 pb-3 space-y-1">
           <jet-responsive-nav-link
             href="/dashboard"
-            :active="$page.props.currentRouteName == 'dashboard'"
+            :active="$page.url.includes('dashboard')"
           >
             Dashboard
+          </jet-responsive-nav-link>
+          <jet-responsive-nav-link
+              href="/lists"
+              :active="$page.url.includes('lists')"
+          >
+            Lists
           </jet-responsive-nav-link>
         </div>
 
