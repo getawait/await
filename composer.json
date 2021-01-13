@@ -16,10 +16,11 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.2.12",
         "laravel/framework": "^8.0",
-        "laravel/jetstream": "^1.5.1",
+        "laravel/jetstream": "^2.0",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

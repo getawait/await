@@ -7,6 +7,14 @@
         </h2>
 
         <div class="float-right">
+          <InertiaLink
+            v-if="!showWelcomePage"
+            :href="`/lists/${list.data.id}/offboard`"
+          >
+            <Button>
+              Offboard
+            </Button>
+          </InertiaLink>
           <DropdownButton v-if="!showWelcomePage">
             <template #text>
               Export
@@ -61,7 +69,7 @@
           You don't have any eager digital adventurers on your waitlist yet – what are you waiting for?
         </p>
 
-        <Codeblock :snippet="snippet"/>
+        <Codeblock :snippet="snippet" />
 
         <div class="bg-white shadow sm:rounded-lg mt-8">
           <div class="px-4 py-5 sm:p-6">
@@ -135,78 +143,80 @@
 </template>
 
 <script>
-  import snippet from '../../Snippets/getting-started';
-  import AppLayout from "../../Layouts/AppLayout";
-  import SecondaryButton from "../../Jetstream/SecondaryButton";
-  import Codeblock from "../../Components/Codeblock";
-  import Table from "../../Components/Table";
-  import TableData from "../../Components/TableData";
-  import DangerButton from "../../Components/DangerButton";
-  import DangerBadge from "../../Components/DangerBadge";
-  import DropdownButton from "../../Components/DropdownButton";
-  import DropdownItem from "../../Components/DropdownItem";
-  import Alert from "../../Components/Alert";
+import snippet from '../../Snippets/getting-started';
+import AppLayout from "../../Layouts/AppLayout";
+import SecondaryButton from "../../Jetstream/SecondaryButton";
+import Codeblock from "../../Components/Codeblock";
+import Table from "../../Components/Table";
+import TableData from "../../Components/TableData";
+import DangerButton from "../../Components/DangerButton";
+import DangerBadge from "../../Components/DangerBadge";
+import DropdownButton from "../../Components/DropdownButton";
+import DropdownItem from "../../Components/DropdownItem";
+import Alert from "../../Components/Alert";
+import Button from "../../Jetstream/Button";
 
-  export default {
-    name: "Show",
-    components: {
-      Alert,
-      DropdownItem,
-      DropdownButton,
-      DangerBadge,
-      DangerButton,
-      TableData,
-      Table,
-      Codeblock,
-      SecondaryButton,
-      AppLayout
+export default {
+  name: "Show",
+  components: {
+    Button,
+    Alert,
+    DropdownItem,
+    DropdownButton,
+    DangerBadge,
+    DangerButton,
+    TableData,
+    Table,
+    Codeblock,
+    SecondaryButton,
+    AppLayout
+  },
+  props: {
+    list: {
+      type: Object,
+      required: true,
     },
-    props: {
-      list: {
-        type: Object,
-        required: true,
-      },
-      user: {
-        type: Object,
-        required: true,
-      },
+    user: {
+      type: Object,
+      required: true,
     },
-    computed: {
-      snippet() {
-        return snippet({
-          waitlistId: this.list.data.id,
-          email: this.user.email,
-        });
-      },
-      showWelcomePage() {
-        return this.list.data.subscribers.length === 0;
-      },
-      rows() {
-        return this.list.data.subscribers.map(subscriber => ({
-          id: subscriber.id,
-          email: subscriber.email,
-          referrer: subscriber.referrer ? subscriber.referrer.email : false,
-          was_referred: subscriber.was_referred,
-        }));
-      },
-      columns() {
-        let columns = ['Email address', 'Referred'];
+  },
+  computed: {
+    snippet() {
+      return snippet({
+        waitlistId: this.list.data.id,
+        email: this.user.email,
+      });
+    },
+    showWelcomePage() {
+      return this.list.data.subscribers.length === 0;
+    },
+    rows() {
+      return this.list.data.subscribers.map(subscriber => ({
+        id: subscriber.id,
+        email: subscriber.email,
+        referrer: subscriber.referrer ? subscriber.referrer.email : false,
+        was_referred: subscriber.was_referred,
+      }));
+    },
+    columns() {
+      let columns = ['Email address', 'Referred'];
 
-        if (this.$page.can('delete')) {
-          columns.push('Actions');
-        }
+      if (this.$page.can('delete')) {
+        columns.push('Actions');
+      }
 
-        return columns;
+      return columns;
+    }
+  },
+  methods: {
+    deleteSubscriber(id, email) {
+      if (confirm(`Are you sure that you would like to delete the following subscriber: "${ email }"`)) {
+        this.$inertia.delete(`/subscribers/${ id }`);
       }
     },
-    methods: {
-      deleteSubscriber(id, email) {
-        if (confirm(`Are you sure that you would like to delete the following subscriber: "${ email }"`)) {
-          this.$inertia.delete(`/subscribers/${ id }`);
-        }
-      },
-    },
-  }
+  },
+}
 </script>
 
 <style scoped>
